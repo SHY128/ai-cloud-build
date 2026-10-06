@@ -44,20 +44,24 @@ jobs:
         run: |
           mkdir -p output
           if [ "${{ github.event.inputs.lang }}" = "cpp" ]; then
-            x86_64-w64-mingw32-g++ -O2 -static -Wall -Wextra src/*.cpp -o output/app.exe
+            x86_64-w64-mingw32-g++ -O2 -static -Wall -Wextra src/*.cpp -o output/app.exe 2>&1 | tee output/build.log
+            echo "EXIT=${PIPESTATUS[0]}" >> output/build.log
           else
-            x86_64-w64-mingw32-gcc -O2 -static -Wall -Wextra src/*.c -o output/app.exe
+            x86_64-w64-mingw32-gcc -O2 -static -Wall -Wextra src/*.c -o output/app.exe 2>&1 | tee output/build.log
+            echo "EXIT=${PIPESTATUS[0]}" >> output/build.log
           fi
 
       - name: Build apk
         if: github.event.inputs.target == 'apk'
         run: |
-          python3 scripts/apk_build.py template src output/app.apk "$ANDROID_HOME"
+          mkdir -p output
+          python3 scripts/apk_build.py template src output/app.apk "$ANDROID_HOME" 2>&1 | tee output/build.log
 
       - name: Commit output
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add output
-          git commit -m "build: ${{ github.event.inputs.target }} output" || echo "no changes"
+          git add -A output
+          git commit -m "build output: ${{ github.event.inputs.target }}" || echo "no changes"
           git push
