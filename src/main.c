@@ -1,5 +1,5 @@
 #include <stdio.h>
 int main(){
-    printf("Hello Success");
+    printf("OK OWNER FIXED");
     return 0;
 }
