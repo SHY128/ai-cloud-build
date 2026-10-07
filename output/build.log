@@ -1,23 +1,8 @@
 src/main.c: In function ‘main’:
-src/main.c:3:12: warning: missing terminating " character
-    3 |     printf("Hello Build Test
-      |            ^
-src/main.c:3:12: error: missing terminating " character
-    3 |     printf("Hello Build Test
-      |            ^~~~~~~~~~~~~~~~~
-src/main.c:4:1: warning: missing terminating " character
-    4 | ");
-      | ^
-src/main.c:4:1: error: missing terminating " character
-    4 | ");
-      | ^~~
-src/main.c:5:5: error: expected expression before ‘return’
-    5 |     return 0;
-      |     ^~~~~~
-src/main.c:5:14: error: expected ‘;’ before ‘}’ token
-    5 |     return 0;
-      |              ^
-      |              ;
-    6 | }
-      | ~             
+src/main.c:3:20: error: expected ‘;’ before ‘return’
+    3 |     printf("hello")
+      |                    ^
+      |                    ;
+    4 |     return 0;
+      |     ~~~~~~          
 EXIT=1
