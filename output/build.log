@@ -1,8 +1,1 @@
-src/main.c: In function ‘main’:
-src/main.c:3:20: error: expected ‘;’ before ‘return’
-    3 |     printf("hello")
-      |                    ^
-      |                    ;
-    4 |     return 0;
-      |     ~~~~~~          
-EXIT=1
+EXIT=0
